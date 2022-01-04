@@ -43,7 +43,7 @@ class Settings:
     @classmethod
     def update_routines(cls, value):
         """Update class routines."""
-        for key, func in value['routines'].items():
+        for func in value['routines'].values():
             cls.qc_routines.setdefault(func.get('name'), func.get('qc_index'))
 
     def _load_settings(self, etc_path):

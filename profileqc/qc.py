@@ -81,6 +81,7 @@ class SessionQC:
 
     def synchronize_flag_fields(self):
         """Sync auto-flags with primary-flag.
+
         Auto-QC corresponds to flag field "Q0_{parameter}",
         when calling synchronize_flag_fields() we import flags from
         this field into the primary q-flag field "Q_{parameter}".

@@ -106,6 +106,7 @@ class Increasing(ContinuousBase):
     Check if value 1 <= value 2 and so on..
     - If not passed: position 1 is flagged as False.
     """
+
     def __call__(self):
         """Run routine."""
         # TODO handle QC failure.. boolean? report?

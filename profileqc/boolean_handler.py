@@ -13,6 +13,7 @@ class BooleanBaseDataFrame:
     """Base of pd.DataFrame boolean handling."""
 
     def __init__(self):
+        """Initiate."""
         super().__init__()
         self.data = None
         self._boolean = True
@@ -133,6 +134,7 @@ class BooleanBaseSerie:
     """Base of pd.Series boolean handling."""
 
     def __init__(self):
+        """Initiate."""
         super().__init__()
         self.serie = None
         self._boolean = True
