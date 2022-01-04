@@ -1,0 +1,5 @@
+routines:
+    dependencies:
+        description: Link parameters together when flagging data
+        name: dependencies
+        routine: !!python/name:profileqc.routines.dependencies.Dependencies ''

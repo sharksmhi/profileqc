@@ -1,0 +1,7 @@
+numpy
+pandas
+gsw
+trollsift
+six
+PyYAML
+setuptools
