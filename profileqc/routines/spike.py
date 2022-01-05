@@ -19,7 +19,8 @@ class Spike(BooleanBaseSerie):
     """
 
     def __init__(self, df_or_serie, parameter=None, q_flag=None,
-                 acceptable_stddev_factor=None, min_stddev_value=None):
+                 acceptable_stddev_factor=None, min_stddev_value=None,
+                 **kwargs):
         """Initiate."""
         super().__init__()
         self.qc_passed = False

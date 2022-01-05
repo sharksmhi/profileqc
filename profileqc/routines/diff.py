@@ -16,7 +16,7 @@ class DiffBase(BooleanBaseDataFrame):
     """Base class of any diff routine."""
 
     def __init__(self, df, parameters=None, q_flag=None,
-                 acceptable_error=None):
+                 acceptable_error=None, **kwargs):
         """Initiate."""
         super().__init__()
         self.qc_passed = False

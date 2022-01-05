@@ -19,7 +19,7 @@ class Range(BooleanBaseSerie):
     """
 
     def __init__(self, df_or_serie, parameter=None, q_flag=None,
-                 min_range_value=None, max_range_value=None):
+                 min_range_value=None, max_range_value=None, **kwargs):
         """Initiate."""
         super().__init__()
         self.qc_passed = False

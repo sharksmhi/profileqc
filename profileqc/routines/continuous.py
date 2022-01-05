@@ -20,7 +20,7 @@ class ContinuousBase(BooleanBaseSerie):
     """Base class of any continuous routine."""
 
     def __init__(self, df_or_serie, parameter=None, q_flag=None,
-                 acceptable_error=None):
+                 acceptable_error=None, **kwargs):
         """Initiate."""
         super().__init__()
         if type(df_or_serie) == pd.DataFrame:

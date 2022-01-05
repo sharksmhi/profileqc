@@ -38,7 +38,6 @@ class Settings:
         self._load_settings(self.base_directory.joinpath('etc'))
         self.user = Path.home().name
         self.repo_version = utils.git_version()
-        print('QC - USER: {}'.format(self.user))
 
     @classmethod
     def update_routines(cls, value):
