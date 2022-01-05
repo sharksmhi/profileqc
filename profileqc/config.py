@@ -61,10 +61,7 @@ class Settings:
         self.set_attributes(self, **settings)
 
     def set_attributes(self, obj, **kwargs):
-        """Set attribute to object.
-
-        With the possibility to add attributes to an object which is not self.
-        """
+        """Set attribute to object."""
         for key, value in kwargs.items():
             if 'routines' in value and 'datasets' in value:
                 self.update_routines(value)
