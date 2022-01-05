@@ -12,7 +12,7 @@ from profileqc.utils import get_time_as_format
 
 
 class SessionQC:
-    """Main class of the ProfileQC.
+    """Main class of ProfileQC.
 
     Run quality control routines and flag data under the Q0-fields.
     The intent is that each parameter has two corresponding flag fields:
@@ -47,7 +47,7 @@ class SessionQC:
         """Return QC routine."""
         return setting['routines'][name]['routine'](self.df, **item)
 
-    def __call__(self):
+    def run(self):
         """Run QC routines."""
         self._open_up_flag_fields()
 
