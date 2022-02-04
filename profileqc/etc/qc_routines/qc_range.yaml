@@ -10,13 +10,13 @@ datasets:
         parameter: 'DEPH'
         q_parameters: ['Q0_DEPH']
         min_range_value: 0
-        max_range_value: 500
+        max_range_value: 2000
         routine: qc_range
     'PRES_CTD':
         parameter: 'PRES_CTD'
         q_parameters: ['Q0_PRES_CTD']
         min_range_value: 0
-        max_range_value: 500
+        max_range_value: 2000
         routine: qc_range
     'TEMP_CTD':
         parameter: 'TEMP_CTD'
