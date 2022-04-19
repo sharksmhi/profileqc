@@ -21,3 +21,8 @@ datasets:
         q_parameters: ['Q0_PAR_CTD']
         acceptable_error: 0.8
         routine: qc_decrease
+    'SPAR_CTD':
+        parameter: 'SPAR_CTD'
+        q_parameters: ['Q0_SPAR_CTD']
+        acceptable_error: 0.8
+        routine: qc_decrease
