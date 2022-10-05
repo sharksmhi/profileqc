@@ -28,35 +28,42 @@ class Settings:
     Keep track of available QC routines and parameter settings.
     """
 
-    qc_routines = {}
-
-    def __init__(self):
+    def __init__(self, routines=None, routine_path=None):
         """Initiate settings object."""
         # TODO: enable possibility for local settings
 
+        self.qc_routines = {}
         self.base_directory = utils.get_base_folder()
-        self._load_settings(self.base_directory.joinpath('etc'))
+        self._load_settings(self.base_directory.joinpath('etc'),
+                            routines=routines,
+                            routine_path=routine_path)
         self.user = Path.home().name
         self.repo_version = utils.git_version()
 
-    @classmethod
-    def update_routines(cls, value):
+    def update_routines(self, value):
         """Update class routines."""
         for func in value['routines'].values():
-            cls.qc_routines.setdefault(func.get('name'), func.get('qc_index'))
+            self.qc_routines.setdefault(func.get('name'), func.get('qc_index'))
 
-    def _load_settings(self, etc_path):
+    def _load_settings(self, etc_path, routines=None, routine_path=None):
         """Load settings."""
         settings = {}
-        for fid in etc_path.glob('**/*.yaml'):
-            with open(fid, encoding='utf8') as fd:
-                content = yaml.load(fd, Loader=yaml.FullLoader)
-                settings[fid.stem] = content
-
         for fid in etc_path.glob('**/*.json'):
             with open(fid, 'r') as fd:
                 content = json.load(fd)
                 settings[fid.stem] = content
+
+        routine_path = Path(routine_path) if routine_path else etc_path
+        if routines:
+            for fid in routines:
+                with open(fid, encoding='utf8') as fd:
+                    content = yaml.load(fd, Loader=yaml.FullLoader)
+                    settings[Path(fid).stem] = content
+        else:
+            for fid in routine_path.glob('**/*.yaml'):
+                with open(fid, encoding='utf8') as fd:
+                    content = yaml.load(fd, Loader=yaml.FullLoader)
+                    settings[fid.stem] = content
 
         self.set_attributes(self, **settings)
 
@@ -64,6 +71,12 @@ class Settings:
         """Set attribute to object."""
         for key, value in kwargs.items():
             if 'routines' in value and 'datasets' in value:
+                for item in value['routines'].values():
+                    item['name'] = key
+                value['routines'][key] = item
+
+                for item in value['datasets'].values():
+                    item['routine'] = key
                 self.update_routines(value)
             setattr(obj, key, value)
 
@@ -80,4 +93,9 @@ class Settings:
 
 
 if __name__ == "__main__":
-    s = Settings()
+    # s = Settings()
+    routine_path = Path(r'C:\Utveckling\TESTING\ctd_qc_advanced\advanced_qc_routine')
+    for fid in routine_path.glob('**/*.yaml'):
+        with open(fid, encoding='utf8') as fd:
+            content = yaml.load(fd, Loader=yaml.FullLoader)
+            content['routines']['_'.join(fid.stem.split('_')[:2])]['name'] = fid.stem

@@ -36,12 +36,13 @@ class SessionQC:
 
     default_comnt = '//COMNT_QC; AUTOMATIC QC PERFORMED BY {}; TIMESTAMP {}; {}'
 
-    def __init__(self, data_item, parameter_mapping=None):
+    def __init__(self, data_item, parameter_mapping=None, routines=None,
+                 routine_path=None):
         """Initiate."""
         self.parameter_mapping = parameter_mapping
         self.df = data_item.get('data')
         self.meta = data_item.get('metadata')
-        self.settings = Settings()
+        self.settings = Settings(routines=routines, routine_path=routine_path)
 
     def initialize_qc_object(self, setting, name, item):
         """Return QC routine."""
