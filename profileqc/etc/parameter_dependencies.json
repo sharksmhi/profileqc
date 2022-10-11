@@ -38,10 +38,20 @@
         "DENS2_CTD"
     ],
     "DENS_CTD": [
-        "DENS_CTD"
+        "DENS_CTD",
+        "SIGMA_THETA_CTD"
     ],
     "DENS2_CTD": [
-        "DENS2_CTD"
+        "DENS2_CTD",
+        "SIGMA_THETA2_CTD"
+    ],
+    "SIGMA_THETA_CTD": [
+        "DENS_CTD",
+        "SIGMA_THETA_CTD"
+    ],
+    "SIGMA_THETA2_CTD": [
+        "DENS2_CTD",
+        "SIGMA_THETA2_CTD"
     ],
     "DOXY_CTD": [
         "DOXY_CTD",
