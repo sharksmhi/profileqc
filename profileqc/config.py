@@ -94,8 +94,10 @@ class Settings:
 
 if __name__ == "__main__":
     # s = Settings()
-    routine_path = Path(r'C:\Utveckling\TESTING\ctd_qc_advanced\advanced_qc_routine')
+    routine_path = Path(
+        r'C:\Utveckling\TESTING\ctd_qc_advanced\advanced_qc_routine')
     for fid in routine_path.glob('**/*.yaml'):
         with open(fid, encoding='utf8') as fd:
             content = yaml.load(fd, Loader=yaml.FullLoader)
-            content['routines']['_'.join(fid.stem.split('_')[:2])]['name'] = fid.stem
+            content['routines']['_'.join(
+                fid.stem.split('_')[:2])]['name'] = fid.stem
