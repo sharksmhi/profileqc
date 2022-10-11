@@ -72,7 +72,7 @@ class Spike(BooleanBaseSerie):
 
         Based on the settings for this routine, we use a minimum value for the
         standard deviation and a factor to multiply with depending on the
-        parameter and sensor sensitivity.
+        parameter and sensor sensitivity.-
         """
         std_serie = self.rolling.std()
         boolean = std_serie < self.min_stddev_value

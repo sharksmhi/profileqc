@@ -15,7 +15,7 @@
     "TEMP2_CTD": [
         "TEMP2_CTD",
         "DENS2_CTD",
-        "DOXY2_SAT_CTD"
+        "DOXY_SAT2_CTD"
     ],
     "SALT_CTD": [
         "SALT_CTD",
@@ -49,13 +49,13 @@
     ],
     "DOXY2_CTD": [
         "DOXY2_CTD",
-        "DOXY2_SAT_CTD"
+        "DOXY_SAT2_CTD"
     ],
     "DOXY_SAT_CTD": [
         "DOXY_SAT_CTD"
     ],
-    "DOXY2_SAT_CTD": [
-        "DOXY2_SAT_CTD"
+    "DOXY_SAT2_CTD": [
+        "DOXY_SAT2_CTD"
     ],
     "PAR_CTD": [
         "PAR_CTD"
