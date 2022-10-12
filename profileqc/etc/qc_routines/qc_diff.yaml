@@ -8,7 +8,7 @@ routines:
 datasets:
     'DOXY_CTD':
         parameters: ['DOXY_CTD', 'DOXY2_CTD']
-        q_parameters: ['Q0_DOXY_CTD', 'Q0_DOXY2_CTD']
+        q_parameters: ['Q0_DOXY_CTD', 'Q0_DOXY2_CTD', 'Q0_DOXY_SAT_CTD', 'Q0_DOXY_SAT2_CTD']
         acceptable_error: 0.3
         q_flag: 'S'
         routine: qc_diff
@@ -20,19 +20,25 @@ datasets:
         routine: qc_diff
     'TEMP_CTD':
         parameters: ['TEMP_CTD', 'TEMP2_CTD']
-        q_parameters: ['Q0_TEMP_CTD', 'Q0_TEMP2_CTD', 'Q0_DENS_CTD', 'Q0_DENS2_CTD']
+        q_parameters: ['Q0_TEMP_CTD', 'Q0_TEMP2_CTD', 'Q0_DENS_CTD', 'Q0_DENS2_CTD', 'Q0_DOXY_SAT_CTD', 'Q0_DOXY_SAT2_CTD']
         acceptable_error: 0.5
         q_flag: 'S'
         routine: qc_diff
     'CNDC_CTD':
         parameters: ['CNDC_CTD', 'CNDC2_CTD']
-        q_parameters: ['Q0_CNDC_CTD', 'Q0_CNDC2_CTD', 'Q0_SALT_CTD', 'Q0_SALT2_CTD', 'Q0_DENS_CTD', 'Q0_DENS2_CTD']
+        q_parameters: ['Q0_CNDC_CTD', 'Q0_CNDC2_CTD', 'Q0_SALT_CTD', 'Q0_SALT2_CTD', 'Q0_DENS_CTD', 'Q0_DENS2_CTD', 'Q0_SIGMA_THETA_CTD', 'Q0_SIGMA_THETA2_CTD']
         acceptable_error: 0.5
         q_flag: 'S'
         routine: qc_diff
     'DENS_CTD':
         parameters: ['DENS_CTD', 'DENS2_CTD']
-        q_parameters: ['Q0_DENS_CTD', 'Q0_DENS2_CTD']
+        q_parameters: ['Q0_DENS_CTD', 'Q0_DENS2_CTD', 'Q0_SIGMA_THETA_CTD', 'Q0_SIGMA_THETA2_CTD']
+        acceptable_error: 0.5
+        q_flag: 'S'
+        routine: qc_diff
+    'SIGMA_THETA_CTD':
+        parameters: ['SIGMA_THETA_CTD', 'SIGMA_THETA2_CTD']
+        q_parameters: ['Q0_DENS_CTD', 'Q0_DENS2_CTD', 'Q0_SIGMA_THETA_CTD', 'Q0_SIGMA_THETA2_CTD']
         acceptable_error: 0.5
         q_flag: 'S'
         routine: qc_diff

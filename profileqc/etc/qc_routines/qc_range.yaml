@@ -14,49 +14,49 @@ datasets:
         routine: qc_range
     'PRES_CTD':
         parameter: 'PRES_CTD'
-        q_parameters: ['Q0_PRES_CTD']
+        q_parameters: ['Q0_PRES_CTD', 'Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD']
         min_range_value: 0
         max_range_value: 2000
         routine: qc_range
     'TEMP_CTD':
         parameter: 'TEMP_CTD'
-        q_parameters: ['Q0_TEMP_CTD', 'Q0_DENS_CTD']
+        q_parameters: ['Q0_TEMP_CTD', 'Q0_DENS_CTD', 'Q0_DOXY_SAT_CTD']
         min_range_value: -2
         max_range_value: 27
         routine: qc_range
     'TEMP2_CTD':
         parameter: 'TEMP2_CTD'
-        q_parameters: ['Q0_TEMP2_CTD', 'Q0_DENS2_CTD']
+        q_parameters: ['Q0_TEMP2_CTD', 'Q0_DENS2_CTD', 'Q0_DOXY_SAT2_CTD']
         min_range_value: -2
         max_range_value: 27
         routine: qc_range
     'CNDC_CTD':
         parameter: 'CNDC_CTD'
-        q_parameters: ['Q0_CNDC_CTD', 'Q0_SALT_CTD']
+        q_parameters: ['Q0_CNDC_CTD', 'Q0_SALT_CTD', 'Q0_SIGMA_THETA_CTD']
         min_range_value: 0
         max_range_value: 6
         routine: qc_range
     'CNDC2_CTD':
         parameter: 'CNDC2_CTD'
-        q_parameters: ['Q0_CNDC2_CTD', 'Q0_SALT2_CTD']
+        q_parameters: ['Q0_CNDC2_CTD', 'Q0_SALT2_CTD', 'Q0_SIGMA_THETA2_CTD']
         min_range_value: 0
         max_range_value: 6
         routine: qc_range
     'SALT_CTD':
         parameter: 'SALT_CTD'
-        q_parameters: ['Q0_SALT_CTD', 'Q0_DENS_CTD']
+        q_parameters: ['Q0_SALT_CTD', 'Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD']
         min_range_value: 0
         max_range_value: 36
         routine: qc_range
     'SALT2_CTD':
         parameter: 'SALT2_CTD'
-        q_parameters: ['Q0_SALT2_CTD', 'Q0_DENS2_CTD']
+        q_parameters: ['Q0_SALT2_CTD', 'Q0_DENS2_CTD', 'Q0_SIGMA_THETA2_CTD']
         min_range_value: 0
         max_range_value: 36
         routine: qc_range
     'DENS_CTD':
         parameter: 'DENS_CTD'
-        q_parameters: ['Q0_DENS_CTD']
+        q_parameters: ['Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD']
 #        min_range_value: -10
 #        max_range_value: 36
         min_range_value: 990
@@ -64,21 +64,33 @@ datasets:
         routine: qc_range
     'DENS2_CTD':
         parameter: 'DENS2_CTD'
-        q_parameters: ['Q0_DENS2_CTD']
+        q_parameters: ['Q0_DENS2_CTD', 'Q0_SIGMA_THETA2_CTD']
 #        min_range_value: -10
 #        max_range_value: 36
         min_range_value: 990
         max_range_value: 1036
         routine: qc_range
+    'SIGMA_THETA_CTD':
+        parameter: 'SIGMA_THETA_CTD'
+        q_parameters: ['Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD']
+        min_range_value: -10
+        max_range_value: 36
+        routine: qc_range
+    'SIGMA_THETA2_CTD':
+        parameter: 'SIGMA_THETA2_CTD'
+        q_parameters: ['Q0_DENS2_CTD', 'Q0_SIGMA_THETA2_CTD']
+        min_range_value: -10
+        max_range_value: 36
+        routine: qc_range
     'DOXY_CTD':
         parameter: 'DOXY_CTD'
-        q_parameters: ['Q0_DOXY_CTD']
+        q_parameters: ['Q0_DOXY_CTD', 'Q0_DOXY_SAT_CTD']
         min_range_value: 0
         max_range_value: 12
         routine: qc_range
     'DOXY2_CTD':
         parameter: 'DOXY2_CTD'
-        q_parameters: ['Q0_DOXY2_CTD']
+        q_parameters: ['Q0_DOXY2_CTD', 'Q0_DOXY_SAT2_CTD']
         min_range_value: 0
         max_range_value: 12
         routine: qc_range
