@@ -6,23 +6,8 @@ routines:
         routine: !!python/name:profileqc.routines.continuous.Decreasing ''
 
 datasets:
-    'DOXY_CTD':
-        parameter: 'DOXY_CTD'
-        q_parameters: ['Q0_DOXY_CTD']
-        acceptable_error: 1
-        routine: qc_decrease
-    'DOXY2_CTD':
-        parameter: 'DOXY2_CTD'
-        q_parameters: ['Q0_DOXY2_CTD']
-        acceptable_error: 1
-        routine: qc_decrease
     'PAR_CTD':
         parameter: 'PAR_CTD'
         q_parameters: ['Q0_PAR_CTD']
-        acceptable_error: 0.8
-        routine: qc_decrease
-    'SPAR_CTD':
-        parameter: 'SPAR_CTD'
-        q_parameters: ['Q0_SPAR_CTD']
-        acceptable_error: 0.8
+        acceptable_error: 1
         routine: qc_decrease
