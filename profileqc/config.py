@@ -72,13 +72,14 @@ class Settings:
 
         self.set_attributes(self, **settings)
 
-    def _update_settings(self, settings, advanced=None):
+    @staticmethod
+    def _update_settings(settings, advanced=None):
         """Overwrite with advanced routine specifications."""
         for routine, routine_item in advanced.items():
             for para, para_item in routine_item.items():
                 if para in settings[routine]['datasets']:
                     for key, value in para_item.items():
-                        if key in settings[routine]['datasets'][para]:
+                        if value and key in settings[routine]['datasets'][para]:
                             settings[routine]['datasets'][para][key] = value
 
     def set_attributes(self, obj, **kwargs):
