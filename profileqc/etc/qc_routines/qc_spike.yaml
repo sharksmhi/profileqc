@@ -26,45 +26,45 @@ datasets:
         routine: qc_spike
     'SALT2_CTD':
         parameter: 'SALT2_CTD'
-        q_parameters: ['Q0_SALT2_CTD', 'Q0_DENS2_CTD', 'Q0_SIGMA_THETA2_CTD']
+        q_parameters: ['Q0_SALT2_CTD', 'Q0_DENS2_CTD', 'Q0_SIGMA2_THETA_CTD']
         acceptable_stddev_factor: 1.25
         min_stddev_value: 0.1
         routine: qc_spike
     'TEMP_CTD':
         parameter: 'TEMP_CTD'
-        q_parameters: ['Q0_TEMP_CTD', 'Q0_DENS_CTD', 'Q0_DOXY_SAT_CTD']
-        acceptable_stddev_factor: 1.25
+        q_parameters: ['Q0_TEMP_CTD', 'Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD', 'Q0_DOXY_CTD', 'Q0_DOXY_SAT_CTD', 'Q0_SALT_CTD']
+        acceptable_stddev_factor: 1.5
         min_stddev_value: 0.1
         routine: qc_spike
     'TEMP2_CTD':
         parameter: 'TEMP2_CTD'
-        q_parameters: ['Q0_TEMP2_CTD', 'Q0_DENS2_CTD', 'Q0_DOXY_SAT2_CTD']
-        acceptable_stddev_factor: 1.25
+        q_parameters: ['Q0_TEMP2_CTD', 'Q0_DENS2_CTD', 'Q0_SIGMA_THETA2_CTD', 'Q0_DOXY2_CTD', 'Q0_DOXY_SAT2_CTD', 'Q0_SALT2_CTD']
+        acceptable_stddev_factor: 1.5
         min_stddev_value: 0.1
         routine: qc_spike
     'DENS_CTD':
         parameter: 'DENS_CTD'
-        q_parameters: ['Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD']
-        acceptable_stddev_factor: 1.25
-        min_stddev_value: 0.1
+        q_parameters: ['Q0_DENS_CTD']
+        acceptable_stddev_factor: 1.5
+        min_stddev_value: 0.2
         routine: qc_spike
     'DENS2_CTD':
         parameter: 'DENS2_CTD'
-        q_parameters: ['Q0_DENS2_CTD', 'Q0_SIGMA_THETA2_CTD']
-        acceptable_stddev_factor: 1.25
-        min_stddev_value: 0.1
+        q_parameters: ['Q0_DENS2_CTD']
+        acceptable_stddev_factor: 1.5
+        min_stddev_value: 0.2
         routine: qc_spike
     'SIGMA_THETA_CTD':
         parameter: 'SIGMA_THETA_CTD'
-        q_parameters: ['Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD']
-        acceptable_stddev_factor: 1.25
-        min_stddev_value: 0.1
+        q_parameters: ['Q0_SIGMA_THETA_CTD', 'Q0_DENS_CTD']
+        acceptable_stddev_factor: 1.5
+        min_stddev_value: 0.2
         routine: qc_spike
     'SIGMA_THETA2_CTD':
         parameter: 'SIGMA_THETA2_CTD'
-        q_parameters: ['Q0_DENS2_CTD', 'Q0_SIGMA_THETA2_CTD']
-        acceptable_stddev_factor: 1.25
-        min_stddev_value: 0.1
+        q_parameters: ['Q0_SIGMA_THETA2_CTD', 'Q0_DENS2_CTD']
+        acceptable_stddev_factor: 1.5
+        min_stddev_value: 0.2
         routine: qc_spike
     'DOXY_CTD':
         parameter: 'DOXY_CTD'
@@ -77,22 +77,4 @@ datasets:
         q_parameters: ['Q0_DOXY2_CTD', 'Q0_DOXY_SAT2_CTD']
         acceptable_stddev_factor: 1.5
         min_stddev_value: 0.1
-        routine: qc_spike
-    'TURB_CTD':
-        parameter: 'TURB_CTD'
-        q_parameters: ['Q0_TURB_CTD']
-        acceptable_stddev_factor: 1.75
-        min_stddev_value: 0.1
-        routine: qc_spike
-    'CHLFLUO_CTD':
-        parameter: 'CHLFLUO_CTD'
-        q_parameters: ['Q0_CHLFLUO_CTD']
-        acceptable_stddev_factor: 1.5
-        min_stddev_value: 0.1
-        routine: qc_spike
-    'PHYC_CTD':
-        parameter: 'PHYC_CTD'
-        q_parameters: ['Q0_PHYC_CTD']
-        acceptable_stddev_factor: 1.75
-        min_stddev_value: 0.05
         routine: qc_spike

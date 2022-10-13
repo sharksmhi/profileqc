@@ -13,48 +13,52 @@ datasets:
         routine: qc_increase
     'PRES_CTD':
         parameter: 'PRES_CTD'
-        q_parameters: ['Q0_PRES_CTD', 'Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD']
+        q_parameters: ['Q0_PRES_CTD']
         acceptable_error: 0
         routine: qc_increase
     'CNDC_CTD':
         comnt: May decrease, but most commonly this parameter should increase with depth
         parameter: 'CNDC_CTD'
-        q_parameters: ['Q0_CNDC_CTD', 'Q0_SALT_CTD', 'Q0_SIGMA_THETA_CTD']
-        acceptable_error: 0.1
+        q_parameters: ['Q0_CNDC_CTD', 'Q0_SALT_CTD', 'Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD']
+        acceptable_error: 0.2
         routine: qc_increase
     'CNDC2_CTD':
         comnt: May decrease, but most commonly this parameter should increase with depth
         parameter: 'CNDC2_CTD'
-        q_parameters: ['Q0_CNDC2_CTD', 'Q0_SALT2_CTD', 'Q0_SIGMA_THETA2_CTD']
-        acceptable_error: 0.1
+        q_parameters: ['Q0_CNDC2_CTD', 'Q0_SALT2_CTD', 'Q0_DENS2_CTD', 'Q0_SIGMA_THETA2_CTD']
+        acceptable_error: 0.2
         routine: qc_increase
     'SALT_CTD':
+        comnt: May not be neccesary, checking CNDC1 might be enough. 
         parameter: 'SALT_CTD'
         q_parameters: ['Q0_SALT_CTD', 'Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD']
         acceptable_error: 0.5
         routine: qc_increase
     'SALT2_CTD':
+        comnt: May not be neccesary, checking CNDC2 might be enough.
         parameter: 'SALT2_CTD'
         q_parameters: ['Q0_SALT2_CTD', 'Q0_DENS2_CTD', 'Q0_SIGMA_THETA2_CTD']
         acceptable_error: 0.5
         routine: qc_increase
     'DENS_CTD':
+        comnt: May not be neccesary, checking SIGMA_THETA_CTD might be enough.
         parameter: 'DENS_CTD'
-        q_parameters: ['Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD']
+        q_parameters: ['Q0_DENS_CTD']
         acceptable_error: 0.1
         routine: qc_increase
     'DENS2_CTD':
+        comnt: May not be neccesary, checking SIGMA_THETA2_CTD might be enough.
         parameter: 'DENS2_CTD'
-        q_parameters: ['Q0_DENS2_CTD', 'Q0_SIGMA_THETA2_CTD']
+        q_parameters: ['Q0_DENS2_CTD']
         acceptable_error: 0.1
         routine: qc_increase
     'SIGMA_THETA_CTD':
         parameter: 'SIGMA_THETA_CTD'
-        q_parameters: ['Q0_DENS_CTD', 'Q0_SIGMA_THETA_CTD']
-        acceptable_error: 0.1
+        q_parameters: ['Q0_SIGMA_THETA_CTD', 'Q0_CNDC_CTD', 'Q0_SALT_CTD', Q0_DENS_CTD]
+        acceptable_error: 0.05
         routine: qc_increase
     'SIGMA_THETA2_CTD':
         parameter: 'SIGMA_THETA2_CTD'
-        q_parameters: ['Q0_DENS2_CTD', 'Q0_SIGMA_THETA2_CTD']
-        acceptable_error: 0.1
-        routine: qc_increase
+        q_parameters: ['Q0_SIGMA_THETA2_CTD', 'Q0_CNDC2_CTD', 'Q0_SALT2_CTD', Q0_DENS2_CTD]
+        acceptable_error: 0.05
+        routine: qc_increase        
