@@ -1,7 +1,6 @@
+geopandas
 numpy
 pandas
-shapely
-geopandas
 six
 PyYAML
 setuptools

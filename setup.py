@@ -16,7 +16,7 @@ with open('requirements.txt', 'r') as fh:
         requirements.append(line.strip())
 
 NAME = 'profileqc'
-VERSION = '0.0.2'
+VERSION = '0.1.0'
 README = open('READMEpypi.rst', 'r').read()
 
 setuptools.setup(
@@ -43,6 +43,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.8',
     install_requires=requirements,
 )
