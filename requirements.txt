@@ -1,6 +1,4 @@
-geopandas
-numpy
-pandas
 six
 PyYAML
+geopandas
 setuptools
