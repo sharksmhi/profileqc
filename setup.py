@@ -34,6 +34,8 @@ setuptools.setup(
             os.path.join('etc', '*.json'),
             os.path.join('etc', '*.yaml'),
             os.path.join('etc', 'qc_routines', '*.yaml'),
+            os.path.join('etc', 'qc_advanced_spec', '*.xlsx'),
+            os.path.join('etc', 'resources', 'shp', '*'),
         ]
     },
     classifiers=[
