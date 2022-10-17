@@ -16,7 +16,7 @@ with open('requirements.txt', 'r') as fh:
         requirements.append(line.strip())
 
 NAME = 'profileqc'
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 README = open('READMEpypi.rst', 'r').read()
 
 setuptools.setup(
