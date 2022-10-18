@@ -26,19 +26,10 @@ class DiffBase(BooleanBaseDataFrame):
         self.acceptable_error = acceptable_error
 
     @property
-    def boolean_return(self):
-        """Return boolean.
-
-        True means that the corresponding value has passed the test.
-        False means that the value has NOT passed and should be flagged.
-        """
-        return self.boolean
-
-    @property
     def flag_return(self):
         """Return serie of flags."""
         flag_serie = np.array(['A'] * self.data.__len__())
-        flag_serie[~self.boolean_return] = self.q_flag
+        flag_serie[self.inverted_boolean] = self.q_flag
         return flag_serie
 
 
