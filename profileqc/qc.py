@@ -37,13 +37,37 @@ class SessionQC:
     default_comnt = '//COMNT_QC; AUTOMATIC QC PERFORMED BY {}; TIMESTAMP {}; {}'
 
     def __init__(self, data_item, parameter_mapping=None, routines=None,
-                 routine_settings=None, routine_path=None):
+                 routine_settings=None, routine_path=None,
+                 advanced_settings_name=None):
         """Initiate."""
+        self.parameter_mapping = parameter_mapping
+        if data_item:
+            self.df = data_item.get('data')
+            self.meta = data_item.get('metadata')
+        self.routines = routines
+        self.routine_path = routine_path
+        self.routine_settings = routine_settings
+        self.advanced_settings_name = advanced_settings_name
+        self.settings = Settings(
+            routines=self.routines,
+            routine_path=self.routine_path,
+            advanced_routine_settings=self.routine_settings,
+            advanced_qc_spec_name=self.advanced_settings_name
+        )
+
+    def update_data(self, data_item, parameter_mapping=None):
+        """Update data."""
         self.parameter_mapping = parameter_mapping
         self.df = data_item.get('data')
         self.meta = data_item.get('metadata')
-        self.settings = Settings(routines=routines, routine_path=routine_path,
-                                 advanced_routine_settings=routine_settings)
+
+    def update_routines(self):
+        """Doc."""
+        self.settings.update_routine_settings(
+            latitude=self.df['LATITUDE_DD'][0],
+            longitude=self.df['LONGITUDE_DD'][0],
+            month=self.df['MONTH'][0]
+        )
 
     def initialize_qc_object(self, setting, name, item):
         """Return QC routine."""
