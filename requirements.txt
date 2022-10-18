@@ -1,6 +1,7 @@
 six
 PyYAML
-geopandas
+fiona==1.8.21
+geopandas==0.11.0
 shapely
 numpy
 pandas
