@@ -16,8 +16,9 @@ with open('requirements.txt', 'r') as fh:
         requirements.append(line.strip())
 
 NAME = 'profileqc'
-VERSION = '0.0.2'
-README = open('READMEpypi.rst', 'r').read()
+VERSION = '0.1.3'
+with open('README.rst', 'r') as file:
+    README = file.read()
 
 setuptools.setup(
     name=NAME,
@@ -34,6 +35,8 @@ setuptools.setup(
             os.path.join('etc', '*.json'),
             os.path.join('etc', '*.yaml'),
             os.path.join('etc', 'qc_routines', '*.yaml'),
+            os.path.join('etc', 'qc_advanced_spec', '*.xlsx'),
+            os.path.join('etc', 'resources', 'shp', '*'),
         ]
     },
     classifiers=[
@@ -41,6 +44,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.8',
     install_requires=requirements,
 )

@@ -12,14 +12,14 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.9
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install flake8 flake8-docstrings flake8-debugger flake8-bugbear pytest
-      - name: Install ProfileQC
-        run: |
-          pip install -e .
+#      - name: Install ProfileQC
+#        run: |
+#          pip install -e .
       - name: Run linting
         run: |
           flake8 profileqc/ --ignore D400

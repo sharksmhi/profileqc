@@ -1,5 +1,7 @@
-numpy
-pandas
 six
 PyYAML
+geopandas
+shapely
+numpy
+pandas
 setuptools
