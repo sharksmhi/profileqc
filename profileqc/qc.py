@@ -37,7 +37,8 @@ class SessionQC:
     default_comnt = '//COMNT_QC; AUTOMATIC QC PERFORMED BY {}; TIMESTAMP {}; {}'
 
     def __init__(self, data_item, parameter_mapping=None, routines=None,
-                 routine_settings=None, routine_path=None, advanced_settings_name=None):
+                 routine_settings=None, routine_path=None,
+                 advanced_settings_name=None):
         """Initiate."""
         self.parameter_mapping = parameter_mapping
         if data_item:
@@ -47,13 +48,15 @@ class SessionQC:
         self.routine_path = routine_path
         self.routine_settings = routine_settings
         self.advanced_settings_name = advanced_settings_name
-        self.settings = Settings(routines=self.routines,
-                                 routine_path=self.routine_path,
-                                 advanced_routine_settings=self.routine_settings,
-                                 advanced_qc_spec_name=self.advanced_settings_name)
+        self.settings = Settings(
+            routines=self.routines,
+            routine_path=self.routine_path,
+            advanced_routine_settings=self.routine_settings,
+            advanced_qc_spec_name=self.advanced_settings_name
+        )
 
     def update_data(self, data_item, parameter_mapping=None):
-        """Data update."""
+        """Update data."""
         self.parameter_mapping = parameter_mapping
         self.df = data_item.get('data')
         self.meta = data_item.get('metadata')

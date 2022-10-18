@@ -26,9 +26,10 @@ def qc_pass_message(obj, spec):
 
 
 class AdvancedQC:
-    """"""
+    """Doc."""
 
     def __init__(self, file_path=None, basin_shp_path=None):
+        """Doc."""
         self.basin_gf = gp.read_file(basin_shp_path)
         self.data = {}
         xlsx_file = pd.ExcelFile(file_path)
@@ -40,6 +41,7 @@ class AdvancedQC:
                     'MONTHS'].str.replace(' ', '').str.split(',')
 
     def extract_advanced_settings(self, area, month):
+        """Doc."""
         _data = {}
         for routine, _item in self.data.items():
             boolean = (_item['AREA_NAME'] == area) & (
@@ -50,10 +52,12 @@ class AdvancedQC:
         return _data
 
     def get_area(self, lat, lon):
+        """Doc."""
         boolean = self.basin_gf.contains(Point((float(lon), float(lat))))
         return self.basin_gf.loc[boolean, 'AREA_NAME'].iloc[0]
 
     def get_routine_settings(self, latitude=None, longitude=None, month=None):
+        """Doc."""
         area = self.get_area(latitude, longitude)
         return self.extract_advanced_settings(area, str(int(month)))
 
