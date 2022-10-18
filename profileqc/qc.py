@@ -110,7 +110,8 @@ class SessionQC:
                                qc_index)
 
                 if qc_func.inverted_boolean.any():
-                    pressure_string = get_pressure_str(self.df.loc[
+                    pressure_string = get_pressure_str(
+                        self.df.loc[
                             qc_func.inverted_boolean,
                             self.parameter_mapping.get('PRES_CTD')
                         ]
@@ -261,10 +262,11 @@ class SessionQC:
         QcLog.update_info(reset_log=True)
 
     def write_log(self, path, reset_log=False):
-        """"""
+        """Write log to file."""
         QcLog.write(path)
         if reset_log:
             self.reset_log()
+
 
 if __name__ == "__main__":
     df = {'metadata': pd.Series([1, 2, 3, 4, 5]),
