@@ -129,6 +129,11 @@ class BooleanBaseDataFrame:
         """Add boolean."""
         self._boolean = self._boolean & add_bool
 
+    @property
+    def inverted_boolean(self):
+        """Return boolean."""
+        return ~self.boolean
+
 
 class BooleanBaseSerie:
     """Base of pd.Series boolean handling."""
@@ -208,6 +213,20 @@ class BooleanBaseSerie:
     def _boolean_not_nan(self):
         """Return boolean."""
         return self.serie.notna()
+
+    @property
+    def boolean_return(self):
+        """Return boolean.
+
+        True means that the corresponding value has passed the test.
+        False means that the value has NOT passed and should be flagged.
+        """
+        return self.boolean
+
+    @property
+    def inverted_boolean(self):
+        """Return boolean."""
+        return ~self.boolean_return
 
     @property
     def _boolean_stack(self):
