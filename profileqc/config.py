@@ -8,6 +8,9 @@ Created on 2022-01-04 15:49
 """
 import json
 import yaml
+import pandas as pd
+import geopandas as gp
+from shapely.geometry import Point
 from pathlib import Path
 from profileqc import utils
 
@@ -22,6 +25,43 @@ def qc_pass_message(obj, spec):
     print('QC-{} passed for {}'.format(obj.__class__.__name__, spec))
 
 
+class AdvancedQC:
+    """Doc."""
+
+    def __init__(self, file_path=None, basin_shp_path=None):
+        """Doc."""
+        self.basin_gf = gp.read_file(basin_shp_path)
+        self.data = {}
+        xlsx_file = pd.ExcelFile(file_path)
+        for sheet in xlsx_file.sheet_names:
+            if sheet.startswith('qc_'):
+                self.data[sheet] = pd.read_excel(
+                    xlsx_file, sheet).set_index('PARAMETER')
+                self.data[sheet]['MONTH_LIST'] = self.data[sheet][
+                    'MONTHS'].str.replace(' ', '').str.split(',')
+
+    def extract_advanced_settings(self, area, month):
+        """Doc."""
+        _data = {}
+        for routine, _item in self.data.items():
+            boolean = (_item['AREA_NAME'] == area) & (
+                _item['MONTH_LIST'].apply(lambda x: month in x))
+            cols = [c for c in _item.columns if
+                    c not in ('AREA_NAME', 'SEASON')]
+            _data.setdefault(routine, _item.loc[boolean, cols].to_dict('index'))
+        return _data
+
+    def get_area(self, lat, lon):
+        """Doc."""
+        boolean = self.basin_gf.contains(Point((float(lon), float(lat))))
+        return self.basin_gf.loc[boolean, 'AREA_NAME'].iloc[0]
+
+    def get_routine_settings(self, latitude=None, longitude=None, month=None):
+        """Doc."""
+        area = self.get_area(latitude, longitude)
+        return self.extract_advanced_settings(area, str(int(month)))
+
+
 class Settings:
     """Config class.
 
@@ -29,18 +69,44 @@ class Settings:
     """
 
     def __init__(self, routines=None, routine_path=None,
-                 advanced_routine_settings=None):
+                 advanced_routine_settings=None, advanced_qc_spec_name=None):
         """Initiate settings object."""
         # TODO: enable possibility for local settings
 
         self.qc_routines = {}
         self.base_directory = utils.get_base_folder()
+        self.routines = routines
+        self.routine_path = routine_path
         self._load_settings(self.base_directory.joinpath('etc'),
                             routines=routines,
                             routine_path=routine_path,
                             advanced_settings=advanced_routine_settings)
         self.user = Path.home().name
         self.repo_version = utils.git_version()
+        if advanced_qc_spec_name:
+            if not advanced_qc_spec_name.endswith('.xlsx'):
+                advanced_qc_spec_name = advanced_qc_spec_name + '.xlsx'
+            self.advanced_spec = AdvancedQC(
+                file_path=self.base_directory.joinpath(
+                    f'etc/qc_advanced_spec/{advanced_qc_spec_name}'),
+                basin_shp_path=self.base_directory.joinpath(
+                    'etc/resources/shp/basins.shp')
+            )
+        else:
+            self.advanced_spec = None
+
+    def update_routine_settings(self, latitude=None, longitude=None,
+                                month=None):
+        """Doc."""
+        spec = self.advanced_spec.get_routine_settings(
+            latitude=latitude, longitude=longitude, month=month)
+        self._load_settings(
+            self.base_directory.joinpath('etc'),
+            routines=self.routines,
+            routine_path=self.routine_path,
+            advanced_settings=spec,
+            only_routines=True
+        )
 
     def add_routines(self, value):
         """Update class routines."""
@@ -48,13 +114,14 @@ class Settings:
             self.qc_routines.setdefault(func.get('name'), func.get('qc_index'))
 
     def _load_settings(self, etc_path, routines=None, routine_path=None,
-                       advanced_settings=None):
+                       advanced_settings=None, only_routines=False):
         """Load settings."""
         settings = {}
-        for fid in etc_path.glob('**/*.json'):
-            with open(fid, 'r') as fd:
-                content = json.load(fd)
-                settings[fid.stem] = content
+        if not only_routines:
+            for fid in etc_path.glob('**/*.json'):
+                with open(fid, 'r') as fd:
+                    content = json.load(fd)
+                    settings[fid.stem] = content
 
         routine_path = Path(routine_path) if routine_path else etc_path
         if routines:
@@ -72,13 +139,14 @@ class Settings:
 
         self.set_attributes(self, **settings)
 
-    def _update_settings(self, settings, advanced=None):
+    @staticmethod
+    def _update_settings(settings, advanced=None):
         """Overwrite with advanced routine specifications."""
         for routine, routine_item in advanced.items():
             for para, para_item in routine_item.items():
                 if para in settings[routine]['datasets']:
                     for key, value in para_item.items():
-                        if key in settings[routine]['datasets'][para]:
+                        if value and key in settings[routine]['datasets'][para]:
                             settings[routine]['datasets'][para][key] = value
 
     def set_attributes(self, obj, **kwargs):

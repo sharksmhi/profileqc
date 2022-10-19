@@ -8,7 +8,12 @@ Created on 2022-01-04 17:05
 """
 import pandas as pd
 from profileqc.config import Settings
-from profileqc.utils import get_time_as_format
+from profileqc.utils import (
+    get_time_as_format,
+    get_pressure_str,
+    get_parameter_str,
+    QcLog
+)
 
 
 class SessionQC:
@@ -37,13 +42,40 @@ class SessionQC:
     default_comnt = '//COMNT_QC; AUTOMATIC QC PERFORMED BY {}; TIMESTAMP {}; {}'
 
     def __init__(self, data_item, parameter_mapping=None, routines=None,
-                 routine_settings=None, routine_path=None):
+                 routine_settings=None, routine_path=None, dataset_name=None,
+                 advanced_settings_name=None):
         """Initiate."""
+        QcLog()
+        self.parameter_mapping = parameter_mapping
+        if data_item:
+            self.df = data_item.get('data')
+            self.meta = data_item.get('metadata')
+        self.dataset_name = dataset_name
+        self.routines = routines
+        self.routine_path = routine_path
+        self.routine_settings = routine_settings
+        self.advanced_settings_name = advanced_settings_name
+        self.settings = Settings(
+            routines=self.routines,
+            routine_path=self.routine_path,
+            advanced_routine_settings=self.routine_settings,
+            advanced_qc_spec_name=self.advanced_settings_name
+        )
+
+    def update_data(self, data_item, parameter_mapping=None, dataset_name=None):
+        """Update data."""
+        self.dataset_name = dataset_name
         self.parameter_mapping = parameter_mapping
         self.df = data_item.get('data')
         self.meta = data_item.get('metadata')
-        self.settings = Settings(routines=routines, routine_path=routine_path,
-                                 advanced_routine_settings=routine_settings)
+
+    def update_routines(self):
+        """Doc."""
+        self.settings.update_routine_settings(
+            latitude=self.df['LATITUDE_DD'][0],
+            longitude=self.df['LONGITUDE_DD'][0],
+            month=self.df['MONTH'][0]
+        )
 
     def initialize_qc_object(self, setting, name, item):
         """Return QC routine."""
@@ -76,6 +108,23 @@ class SessionQC:
                 # Check results and execute appropriate action (flag the data)
                 self.add_qflag(qc_func.flag_return, item.get('q_parameters'),
                                qc_index)
+
+                if qc_func.inverted_boolean.any():
+                    pressure_string = get_pressure_str(
+                        self.df.loc[
+                            qc_func.inverted_boolean,
+                            self.parameter_mapping.get('PRES_CTD')
+                        ]
+                    )
+                    para_string = get_parameter_str(item)
+
+                    QcLog.update_info(
+                        serie=self.dataset_name,
+                        routine_name=qc_routine,
+                        parameter=para_string,
+                        pressure=pressure_string,
+                        info=f'Flagged with: {qc_func.q_flag}'
+                    )
 
         self._close_flag_fields()
         self.synchronize_flag_fields()
@@ -207,6 +256,16 @@ class SessionQC:
         self.meta[len(self.meta) + 1] = self.default_comnt.format(
             self.settings.user, time_stamp, self.settings.repo_version
         )
+
+    def reset_log(self):
+        """Reset log."""
+        QcLog.update_info(reset_log=True)
+
+    def write_log(self, path, reset_log=False):
+        """Write log to file."""
+        QcLog.write(path)
+        if reset_log:
+            self.reset_log()
 
 
 if __name__ == "__main__":

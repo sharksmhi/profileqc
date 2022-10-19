@@ -20,7 +20,7 @@ class Spike(BooleanBaseSerie):
 
     def __init__(self, df_or_serie, parameter=None, q_flag=None,
                  acceptable_stddev_factor=None, min_stddev_value=None,
-                 **kwargs):
+                 number_of_values=None, **kwargs):
         """Initiate."""
         super().__init__()
         self.qc_passed = False
@@ -33,11 +33,14 @@ class Spike(BooleanBaseSerie):
 
         self.acceptable_stddev_factor = acceptable_stddev_factor
         self.min_stddev_value = min_stddev_value
+        self.number_of_values = number_of_values or 7
 
-        # self.index_window = 7  # ok window?
+        # self.number_of_values = 7  # ok window?
         # user can control the outcome with acceptable_stddev_factor
-        # self.min_periods = 3  # or np.floor(self.index_window / 2)
-        self.rolling = self.serie.rolling(7, min_periods=3, center=True)
+        min_periods = int(np.floor(self.number_of_values / 2))
+        self.rolling = self.serie.rolling(self.number_of_values,
+                                          min_periods=min_periods,
+                                          center=True)
 
     def __call__(self):
         """Run routine."""
@@ -80,17 +83,8 @@ class Spike(BooleanBaseSerie):
         return std_serie * self.acceptable_stddev_factor
 
     @property
-    def boolean_return(self):
-        """Return boolean.
-
-        True means that the corresponding value has passed the test.
-        False means that the value has NOT passed and should be flagged.
-        """
-        return self.boolean
-
-    @property
     def flag_return(self):
         """Return serie of flags."""
         flag_serie = np.array(['A'] * self.serie.__len__())
-        flag_serie[~self.boolean_return] = self.q_flag
+        flag_serie[self.inverted_boolean] = self.q_flag
         return flag_serie
