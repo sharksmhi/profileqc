@@ -6,14 +6,18 @@ Created on 2022-01-04 17:05
 
 @author: johannes
 """
+import logging
 import pandas as pd
 from profileqc.config import Settings
 from profileqc.utils import (
     get_time_as_format,
     get_pressure_str,
+    get_float_list,
     get_parameter_str,
     QcLog
 )
+
+logger = logging.getLogger(__file__)
 
 
 class SessionQC:
@@ -110,25 +114,68 @@ class SessionQC:
                                qc_index)
 
                 if qc_func.inverted_boolean.any():
-                    pressure_string = get_pressure_str(
+                    # pressure_string = get_pressure_str(
+                    #     self.df.loc[
+                    #         qc_func.inverted_boolean,
+                    #         self.parameter_mapping.get('PRES_CTD')
+                    #     ]
+                    # )
+                    pressure_list = get_float_list(
                         self.df.loc[
                             qc_func.inverted_boolean,
                             self.parameter_mapping.get('PRES_CTD')
                         ]
                     )
+
                     para_string = get_parameter_str(item)
+                    para_data_list = self._get_parameter_diff_list(para_string, qc_func)
+                    if not para_data_list:
+                        try:
+                            para_data_list = get_float_list(
+                                self.df.loc[
+                                    qc_func.inverted_boolean,
+                                    self.parameter_mapping.get(para_string)
+                                ]
+                            )
+                        except KeyError as e:
+                            logger.info(f'-No parameter_mapping found for key: {para_string}')
+                            logger.debug(f'   = {item=}')
+                            logger.debug(f'   - {para_string=}')
+                            logger.debug(f'   - {self.parameter_mapping.get(para_string)=}')
 
                     QcLog.update_info(
                         serie=self.dataset_name,
                         routine_name=qc_routine,
                         parameter=para_string,
-                        pressure=pressure_string,
+                        pressure=pressure_list,
+                        parameter_data=para_data_list,
+                        # pressure=pressure_string,
+                        flag=str(qc_func.q_flag),
+                        qc_index=qc_index,
                         info=f'Flagged with: {qc_func.q_flag}'
                     )
 
         self._close_flag_fields()
         self.synchronize_flag_fields()
         self.append_qc_comment()
+
+    def _get_parameter_diff_list(self, para_string, qc_func):
+        if '-' not in para_string:
+            return False
+        par1, par2 = [par.strip() for par in para_string.split('-')]
+        par1_data_list = get_float_list(
+            self.df.loc[
+                qc_func.inverted_boolean,
+                self.parameter_mapping.get(par1)
+            ]
+        )
+        par2_data_list = get_float_list(
+            self.df.loc[
+                qc_func.inverted_boolean,
+                self.parameter_mapping.get(par2)
+            ]
+        )
+        return [p1-p2 for p1, p2 in zip(par1_data_list, par2_data_list)]
 
     def synchronize_flag_fields(self):
         """Sync auto-flags with primary-flag.
@@ -243,6 +290,11 @@ class SessionQC:
     def data_available(self, item):
         """Check if the parameter(s) in self.df have any data."""
         if item.get('parameter'):
+
+            print(f"{item.get('parameter')=}")
+            print(f"{self.df[item.get('parameter')]=}")
+            print(f"{type(self.df[item.get('parameter')])=}")
+            print(f"{self.df[item.get('parameter')].any()=}")
             if self.df[item.get('parameter')].any():
                 return True
 

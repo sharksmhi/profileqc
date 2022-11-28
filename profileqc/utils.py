@@ -9,6 +9,7 @@ Created on 2022-01-04 15:20
 import yaml
 import datetime
 from pathlib import Path
+import numpy as np
 
 
 def get_base_folder():
@@ -54,6 +55,11 @@ def get_pressure_str(pressure_serie):
     return ','.join(pressure_serie)
 
 
+def get_float_list(pressure_serie):
+    """Doc."""
+    return [float(item) if item else np.nan for item in pressure_serie]
+
+
 def get_parameter_str(_item):
     """Doc."""
     para_string = _item.get('parameter')
@@ -72,7 +78,8 @@ class QcLog:
     log = {}
 
     def __init__(self, *args, reset_log=None, serie=None, routine_name=None,
-                 parameter=None, pressure=None, info=None, **kwargs):
+                 parameter=None, pressure=None, info=None, flag=None, qc_index=None,
+                 parameter_data=None, **kwargs):
         """Log for QC routine failure / comments.
 
         Args:
@@ -93,16 +100,49 @@ class QcLog:
             for a in args:
                 self.log.setdefault('etc', []).append(a)
 
-        if serie and routine_name and parameter:
+        # if serie and routine_name and parameter and flag:
+        #     info = info or ''
+        #     pressure = pressure or 'pressure not specified'
+        #     self.log.setdefault(serie, {})
+        #     self.log[serie].setdefault(routine_name, {})
+        #     self.log[serie][routine_name].setdefault(parameter, {})
+        #     self.log[serie][routine_name][parameter][flag] = pressure
+
+        if serie and routine_name and parameter and flag:
             info = info or ''
             pressure = pressure or 'pressure not specified'
             self.log.setdefault(serie, {})
             self.log[serie].setdefault(routine_name, {})
-            self.log[serie][routine_name].setdefault(
-                'parameter', []).append(parameter)
-            self.log[serie][routine_name].setdefault(
-                'pressure', []).append(pressure)
-            self.log[serie][routine_name].setdefault('info', []).append(info)
+            self.log[serie][routine_name].setdefault(parameter, {})
+            self.log[serie][routine_name][parameter].setdefault(flag, {})
+            self.log[serie][routine_name][parameter][flag]['values'] = parameter_data
+            self.log[serie][routine_name][parameter][flag]['pressure'] = pressure
+            self.log[serie][routine_name][parameter][flag]['info'] = info
+            self.log[serie][routine_name][parameter][flag]['qc_index'] = qc_index
+
+        # if serie and routine_name and parameter and flag:
+        #     info = info or ''
+        #     pressure = pressure or 'pressure not specified'
+        #     qc_index = qc_index or '?'
+        #
+        #     self.log.setdefault(serie, {})
+        #     self.log[serie].setdefault(routine_name, {})
+        #     self.log[serie][routine_name].setdefault(parameter, {})
+        #     self.log[serie][routine_name][parameter].setdefault(
+        #         'pressure', []).append(pressure)
+        #     self.log[serie][routine_name][parameter].setdefault('flag', []).append(flag)
+        #     self.log[serie][routine_name][parameter].setdefault('info', []).append(info)
+
+        # if serie and routine_name and parameter:
+        #     info = info or ''
+        #     pressure = pressure or 'pressure not specified'
+        #     self.log.setdefault(serie, {})
+        #     self.log[serie].setdefault(routine_name, {})
+        #     self.log[serie][routine_name].setdefault(
+        #         'parameter', []).append(parameter)
+        #     self.log[serie][routine_name].setdefault(
+        #         'pressure', []).append(pressure)
+        #     self.log[serie][routine_name].setdefault('info', []).append(info)
 
     @classmethod
     def update_info(cls, *args, **kwargs):
