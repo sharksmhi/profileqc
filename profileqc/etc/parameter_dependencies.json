@@ -20,11 +20,13 @@
     ],
     "SALT_CTD": [
         "SALT_CTD",
+        "CNDC_CTD",
         "DENS_CTD",
         "SIGMA_THETA_CTD"
     ],
     "SALT2_CTD": [
         "SALT2_CTD",
+        "CNDC2_CTD",        
         "DENS2_CTD",
         "SIGMA_THETA2_CTD"
     ],
