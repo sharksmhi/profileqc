@@ -8,7 +8,8 @@
         "DENS_CTD",
         "SIGMA_THETA_CTD",
         "DOXY_CTD",
-        "DOXY_SAT_CTD"
+        "DOXY_SAT_CTD",
+        "SVEL_CTD"
     ],
     "TEMP2_CTD": [
         "TEMP2_CTD",
@@ -16,39 +17,46 @@
         "DENS2_CTD",
         "SIGMA_THETA2_CTD",
         "DOXY2_CTD",
-        "DOXY_SAT2_CTD"
+        "DOXY_SAT2_CTD",
+        "SVEL2_CTD"
     ],
     "SALT_CTD": [
         "SALT_CTD",
         "CNDC_CTD",
         "DENS_CTD",
-        "SIGMA_THETA_CTD"
+        "SIGMA_THETA_CTD",
+        "SVEL_CTD"
     ],
     "SALT2_CTD": [
         "SALT2_CTD",
-        "CNDC2_CTD",        
+        "CNDC2_CTD",
         "DENS2_CTD",
-        "SIGMA_THETA2_CTD"
+        "SIGMA_THETA2_CTD",
+        "SVEL2_CTD"
     ],
     "CNDC_CTD": [
         "CNDC_CTD",
         "SALT_CTD",
         "DENS_CTD",
-        "SIGMA_THETA_CTD"
+        "SIGMA_THETA_CTD",
+        "SVEL_CTD"
     ],
     "CNDC2_CTD": [
         "CNDC2_CTD",
         "SALT2_CTD",
         "DENS2_CTD",
-        "SIGMA_THETA2_CTD"
+        "SIGMA_THETA2_CTD",
+        "SVEL2_CTD"
     ],
     "SIGMA_THETA_CTD": [
         "SIGMA_THETA_CTD",
-        "DENS_CTD"
+        "DENS_CTD",
+        "SVEL_CTD"
     ],
     "SIGMA_THETA2_CTD": [
         "SIGMA_THETA2_CTD",
-        "DENS2_CTD"
+        "DENS2_CTD",
+        "SVEL2_CTD"
     ],
     "DENS_CTD": [
         "DENS_CTD"
