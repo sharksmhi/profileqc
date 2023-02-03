@@ -50,11 +50,15 @@
     ],
     "SIGMA_THETA_CTD": [
         "SIGMA_THETA_CTD",
+        "CNDC_CTD",
+        "SALT_CTD",        
         "DENS_CTD",
         "SVEL_CTD"
     ],
     "SIGMA_THETA2_CTD": [
         "SIGMA_THETA2_CTD",
+        "CNDC2_CTD",
+        "SALT2_CTD",
         "DENS2_CTD",
         "SVEL2_CTD"
     ],
