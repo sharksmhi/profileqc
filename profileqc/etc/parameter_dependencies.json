@@ -50,15 +50,21 @@
     ],
     "SIGMA_THETA_CTD": [
         "SIGMA_THETA_CTD",
+        "TEMP_CTD",
         "CNDC_CTD",
-        "SALT_CTD",        
+        "SALT_CTD",
+        "DOXY_CTD",
+        "DOXY_SAT_CTD",
         "DENS_CTD",
         "SVEL_CTD"
     ],
     "SIGMA_THETA2_CTD": [
         "SIGMA_THETA2_CTD",
+        "TEMP2_CTD",
         "CNDC2_CTD",
         "SALT2_CTD",
+        "DOXY2_CTD",
+        "DOXY_SAT2_CTD",
         "DENS2_CTD",
         "SVEL2_CTD"
     ],
@@ -97,6 +103,12 @@
     "TURB_CTD": [
         "TURB_CTD"
     ],
+    "ALTM_CTD": [
+        "ALTM_CTD"
+    ],
+    "DESC_RATE_CTD": [
+        "DESC_RATE_CTD"
+    ],    
     "SVEL_CTD": [
         "SVEL_CTD"
     ],
