@@ -16,7 +16,7 @@ with open('requirements.txt', 'r') as fh:
         requirements.append(line.strip())
 
 NAME = 'profileqc'
-VERSION = '0.1.3'
+VERSION = '0.2.0'
 with open('README.rst', 'r') as file:
     README = file.read()
 
@@ -24,7 +24,7 @@ setuptools.setup(
     name=NAME,
     version=VERSION,
     author="Johannes Johansson",
-    author_email="johannes.johansson@smhi.se",
+    author_email="shark@smhi.se",
     description="Package for quality control of high resolution profile data.",
     long_description=README,
     long_description_content_type="text/markdown",
