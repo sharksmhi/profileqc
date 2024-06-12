@@ -1,0 +1,29 @@
+[project]
+name = "profileqc"
+version = "1.0.0"
+description = "Python package for quality control of profile data, mainly high resolution oceanographic sensor-data eg. CTD, MVP"
+authors = [
+    {name = "Johannes Johansson", email = "nodc@smhi.se"},
+]
+dependencies = [
+    "geopandas>=0.14.3",
+    "pyyaml>=6.0.1",
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mypkg = ["."]
