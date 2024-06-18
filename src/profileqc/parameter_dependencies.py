@@ -16,9 +16,6 @@ class ParameterDependencies:
     def get_dependent_parameters(self, par: str) -> list[str]:
         return self._config.get(par, [])
 
-    def get_dependent_qf_parameters(self, par: str) -> list[str]:
-        return [f'Q0_{p}' for p in self.get_dependent_parameters(par)]
-
 
 if __name__ == '__main__':
     pd = ParameterDependencies()

@@ -111,11 +111,14 @@ class SessionQC:
                 # Run QC routine
                 qc_func()
 
-                par_dep = self._parameter_dependencies.get_dependent_qf_parameters(par)
+                par_dep = self._parameter_dependencies.get_dependent_parameters(par)
+                dep_pars = [f'Q0_{p}' for p in par_dep if p != par]
+                q_par = f'Q0_{par}'
+                self.add_qflag(qc_func.flag_return, [q_par], qc_index)
+                self.add_qflag(qc_func.flag_return, dep_pars, 5)
 
                 # Check results and execute appropriate action (flag the data)
                 # self.add_qflag(qc_func.flag_return, item.get('q_parameters'), qc_index)
-                self.add_qflag(qc_func.flag_return, par_dep, qc_index)
 
                 if qc_func.inverted_boolean.any():
                     # pressure_string = get_pressure_str(
@@ -230,9 +233,13 @@ class SessionQC:
                 elif qf == 'S':  # qf_list[qc_index] != 'B'
                     qf_list[qc_index] = qf
 
+    @property
+    def nr_qc0_places(self) -> int:
+        return (self.settings.number_of_routines + 1)  # + 1 is for dependency flag
+
     def set_qc0_standard_format(self, key=None):
         """Set default QC0 format."""
-        self.df[key] = '0' * self.settings.number_of_routines
+        self.df[key] = '0' * self.nr_qc0_places
 
     def _open_up_flag_fields(self):
         """Open up QC0-flag field.
@@ -257,7 +264,8 @@ class SessionQC:
 
         for q_key in self.df:
             if q_key.startswith('Q0_'):
-                self.df[q_key] = self.df[q_key].apply(list)
+                self.df[q_key] = self.df[q_key].apply(lambda x: list(x.zfill(self.nr_qc0_places)))
+                # self.df[q_key] = self.df[q_key].apply(list)
 
     def _close_flag_fields(self):
         """Close down QC0-flag field.
