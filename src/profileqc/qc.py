@@ -16,6 +16,7 @@ from profileqc.utils import (
     get_parameter_str,
     QcLog
 )
+from profileqc.parameter_dependencies import ParameterDependencies
 
 logger = logging.getLogger(__file__)
 
@@ -51,6 +52,7 @@ class SessionQC:
         """Initiate."""
         QcLog()
         self.parameter_mapping = parameter_mapping
+        self._parameter_dependencies = ParameterDependencies()
         if data_item:
             self.df = data_item.get('data')
             self.meta = data_item.get('metadata')
@@ -92,7 +94,7 @@ class SessionQC:
         for qc_routine, qc_index in self.settings.qc_routines.items():
             qc_setting = getattr(self.settings, qc_routine)
 
-            for item in qc_setting['datasets'].values():
+            for par, item in qc_setting['datasets'].items():
 
                 # Check if parameters exists
                 if not self.parameters_available(item):
@@ -109,9 +111,11 @@ class SessionQC:
                 # Run QC routine
                 qc_func()
 
+                par_dep = self._parameter_dependencies.get_dependent_qf_parameters(par)
+
                 # Check results and execute appropriate action (flag the data)
-                self.add_qflag(qc_func.flag_return, item.get('q_parameters'),
-                               qc_index)
+                # self.add_qflag(qc_func.flag_return, item.get('q_parameters'), qc_index)
+                self.add_qflag(qc_func.flag_return, par_dep, qc_index)
 
                 if qc_func.inverted_boolean.any():
                     # pressure_string = get_pressure_str(
