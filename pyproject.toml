@@ -6,7 +6,7 @@ authors = [
     {name = "Johannes Johansson", email = "nodc@smhi.se"},
 ]
 dependencies = [
-    "geopandas>=0.14.*",
+    "geopandas==0.14.*",
     "pyyaml>=6.0.1",
 ]
 requires-python = ">=3.11"
