@@ -130,5 +130,5 @@ datasets:
         parameter: 'TURB_CTD'
         q_parameters: ['Q0_TURB_CTD']
         min_range_value: 0
-        max_range_value: 10
+        max_range_value: 30
         routine: qc_range
